@@ -31,8 +31,14 @@ func main() {
   var value interface{}
   switch valueType {
   case "[string]": value = strings.Split(strings.TrimSpace(dataStr), "\n")
-  case "float": value,_ = strconv.ParseFloat(dataStr, 64)
-  case "int": value,_ = strconv.ParseInt(dataStr, 10, 0)
+  case "float": {
+    value,err = strconv.ParseFloat(strings.TrimSpace(dataStr), 64)
+    if err != nil { fmt.Println("ERROR: ", err) }
+  }
+  case "int": {
+    value,err = strconv.ParseInt(strings.TrimSpace(dataStr), 10, 0)
+    if err != nil { fmt.Println("ERROR: ", err) }
+  }
   case "string":
   default: value = dataStr
   }

@@ -59,7 +59,6 @@ func Parse(valueType string, valueStr string) interface{} {
   return value
 }
 
-
 func Fill(json Json, propNames []string, value interface{}) Json {
   finger := json
   for idx, propName := range propNames {

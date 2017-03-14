@@ -6,7 +6,9 @@ Target-Property("." separated key path: "prop1.prop2").
 
 # Install
 
+```
 go get github.com/tmrtmhr/filljson
+```
 
 # Usage
 

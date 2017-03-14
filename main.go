@@ -39,7 +39,7 @@ func main() {
     value,err = strconv.ParseInt(strings.TrimSpace(dataStr), 10, 0)
     if err != nil { fmt.Println("ERROR: ", err) }
   }
-  case "string":
+  case "string": fallthrough
   default: value = dataStr
   }
 

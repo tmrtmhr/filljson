@@ -1,8 +1,12 @@
 # Purpose
 
-This script replace input json with some command output, or file body.
+This program replace input json with some command output, or file body.
 You needs to specify Value-Type (int,float,string,[string]), and
 Target-Property("." separated key path: "prop1.prop2").
+
+# Install
+
+go get github.com/tmrtmhr/filljson
 
 # Usage
 

@@ -25,19 +25,28 @@ func main() {
   inputFile := flag.Arg(2)
 
   data, err := ioutil.ReadFile(inputFile)
-  if err != nil {
-    fmt.Println("ERROR: ", err)
-  }
+  errorCheck(err)
 
   value := Parse(valueType, string(data))
 
   var jsonData map[string]interface{}
-  _ = json.Unmarshal(jsonStr, &jsonData)
+  err = json.Unmarshal(jsonStr, &jsonData)
+  errorCheck(err)
 
   jsonData = Fill(jsonData,propNames,value)
 
   str, err := json.Marshal(jsonData)
+  errorCheck(err)
   fmt.Print(string(str))
+}
+
+func errorCheck(err error) {
+  if (err != nil) {
+    fmt.Println("ERROR: ", err)
+    os.Exit(1)
+  } else {
+    return
+  }
 }
 
 func Parse(valueType string, valueStr string) interface{} {
@@ -45,17 +54,12 @@ func Parse(valueType string, valueStr string) interface{} {
   var err error
   switch valueType {
   case "[string]": value = strings.Split(strings.TrimSpace(valueStr), "\n")
-  case "float": {
-    value,err = strconv.ParseFloat(strings.TrimSpace(valueStr), 64)
-    if err != nil { fmt.Println("ERROR: ", err) }
-  }
-  case "int": {
-    value,err = strconv.ParseInt(strings.TrimSpace(valueStr), 10, 0)
-    if err != nil { fmt.Println("ERROR: ", err) }
-  }
+  case "float": value,err = strconv.ParseFloat(strings.TrimSpace(valueStr), 64)
+  case "int": value,err = strconv.ParseInt(strings.TrimSpace(valueStr), 10, 0)
   case "string": fallthrough
   default: value = valueStr
   }
+  errorCheck(err)
   return value
 }
 
